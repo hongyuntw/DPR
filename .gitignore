@@ -1,0 +1,4 @@
+core.*
+ctx_embedding_output/*
+results/*
+data/retriever/*
