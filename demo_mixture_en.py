@@ -345,7 +345,9 @@ def main(args):
             retriever.index.serialize(index_path)
     # get questions & answers
     question = args.question
+    # t2s
     
+    question = cc.convert(question)
     
     questions_tensor = retriever.generate_question_vector(question)
     # question_answers = [["FOR_DEMO"]]
@@ -382,13 +384,13 @@ def main(args):
 
     sorted_mixture_results = {k: v for k, v in sorted(mixture_results.items(), key=lambda item: item[1], reverse=True)}
 
-    print(f'Question : {question}, Alpha : {alpha}')
+    print(f'Question : {question}')
     for i, (pid, score) in enumerate(sorted_mixture_results.items()):
         bm25_score = bm25_results[pid]
         dpr_score = dpr_results[pid]
         print(f'top {i + 1}')
         print(all_passages[pid][0])
-        print(f'BM25 score: {bm25_score} , DPR score : {dpr_score}, Final score : {score}')
+        print(f'BM25 score: {bm25_score} , DPR score : {dpr_score}')
         print('-------')
         if i >= args.n_docs:
             break
