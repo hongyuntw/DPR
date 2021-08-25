@@ -377,7 +377,7 @@ def main(args):
 
     mixture_results = {}
     # final score = dpr_score + alpha * bm25_score
-    alpha = 0.8
+    alpha = args.alpha
     for key, bm25_score in  bm25_results.items():
         dpr_score = dpr_results[key]
         mixture_results[key] = dpr_score + alpha * bm25_score
@@ -423,6 +423,13 @@ if __name__ == "__main__":
         type=str,
         default=None,
         help="Question",
+    )
+    parser.add_argument(
+        "--alpha",
+        required=True,
+        type=float,
+        default=0.5,
+        help="final_score = dpr_score + alpha * bm25_score",
     )
     parser.add_argument(
         "--ctx_file",
